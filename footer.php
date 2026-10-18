@@ -1,5 +1,5 @@
 </main>
-<footer>NUlan Ahead &middot; Finals Laboratory Project, submitted by Cabrera, Madanglog, Supeña.</footer>
+<footer>NUlan Ahead &middot; Finals Laboratory Project, submitted by Ryzenshine</footer>
 </body>
 
 </html>
