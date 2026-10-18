@@ -63,6 +63,7 @@ function showHourly(data) {
     var html = '';
     var maxChance = 0;
     var totalRain = 0;
+    var maxHourlyRain = 0;
 
     // show the next 6 hours
     for (var i = start; i < start + 6; i++) {
@@ -72,6 +73,7 @@ function showHourly(data) {
 
         if (chance > maxChance) maxChance = chance;
         totalRain = totalRain + rain;
+        if (rain > maxHourlyRain) maxHourlyRain = rain;
 
         html += '<div class="mini">' +
             '<small>' + getHour(hourly.time[i]) + '</small>' +
@@ -82,6 +84,7 @@ function showHourly(data) {
     }
 
     document.getElementById('hourly').innerHTML = html;
+    window.setWeatherTheme(maxHourlyRain >= 2.5 ? 'dark' : 'light');
     showAdvisor(maxChance, totalRain);
 }
 

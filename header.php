@@ -48,12 +48,22 @@
             themeToggle.setAttribute('aria-label', 'Switch to ' + (theme === 'dark' ? 'light' : 'dark') + ' mode');
         }
 
+        function applyTheme(theme) {
+            currentTheme = theme;
+            document.documentElement.dataset.theme = theme;
+            updateThemeToggle(theme);
+        }
+
+        window.setWeatherTheme = function (theme) {
+            if (!localStorage.getItem('theme')) {
+                applyTheme(theme);
+            }
+        };
+
         updateThemeToggle(currentTheme);
         themeToggle.addEventListener('click', function () {
-            currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            document.documentElement.dataset.theme = currentTheme;
+            applyTheme(currentTheme === 'dark' ? 'light' : 'dark');
             localStorage.setItem('theme', currentTheme);
-            updateThemeToggle(currentTheme);
         });
     </script>
     <main>
