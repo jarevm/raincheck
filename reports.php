@@ -62,7 +62,6 @@ $result = $stmt->get_result();
 
 $reports = [];
 while ($row = $result->fetch_assoc()) {
-    // escape the text so it is safe to show on the page
     $row['area'] = htmlspecialchars($row['area']);
     $row['note'] = htmlspecialchars($row['note'] ?? '');
     $row['author'] = htmlspecialchars($row['author']);

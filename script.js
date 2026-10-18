@@ -3,8 +3,6 @@ var LAT = 14.2117;
 var LON = 121.1653;
 
 // ---------- weather ----------
-
-// turn the weather code into a text and an emoji
 function getWeather(code) {
     if (code <= 1) return ['Clear', '☀️'];
     if (code <= 3) return ['Cloudy', '⛅'];
@@ -14,7 +12,6 @@ function getWeather(code) {
     return ['Thunderstorm', '⛈️'];
 }
 
-// 13:00 -> 1 PM
 function getHour(timeText) {
     var hour = Number(timeText.slice(11, 13));
     var ampm = hour < 12 ? 'AM' : 'PM';
@@ -138,7 +135,7 @@ function timeText(minutes) {
 }
 
 function loadReports() {
-    // build the url from the filters
+    // build the url from filters
     var url = 'reports.php?area=' + document.getElementById('area').value +
         '&rain=' + document.getElementById('rain').value +
         '&flood=' + document.getElementById('flood').value +
