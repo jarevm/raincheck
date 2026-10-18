@@ -6,7 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?php echo $page_title; ?> | UlanAlert</title>
     <script>
-        var savedTheme = localStorage.getItem('theme');
+        var navigationEntries = performance.getEntriesByType ?
+            performance.getEntriesByType('navigation') : [];
+        var isReload = navigationEntries.length ?
+            navigationEntries[0].type === 'reload' :
+            performance.navigation && performance.navigation.type === 1;
+        if (isReload) {
+            sessionStorage.removeItem('themeOverride');
+        }
+
+        var savedTheme = sessionStorage.getItem('themeOverride') ||
+            sessionStorage.getItem('weatherTheme');
         if (savedTheme === 'light' || savedTheme === 'dark') {
             document.documentElement.dataset.theme = savedTheme;
         }
@@ -55,7 +65,8 @@
         }
 
         window.setWeatherTheme = function (theme) {
-            if (!localStorage.getItem('theme')) {
+            sessionStorage.setItem('weatherTheme', theme);
+            if (!sessionStorage.getItem('themeOverride')) {
                 applyTheme(theme);
             }
         };
@@ -63,7 +74,7 @@
         updateThemeToggle(currentTheme);
         themeToggle.addEventListener('click', function () {
             applyTheme(currentTheme === 'dark' ? 'light' : 'dark');
-            localStorage.setItem('theme', currentTheme);
+            sessionStorage.setItem('themeOverride', currentTheme);
         });
     </script>
     <main>
