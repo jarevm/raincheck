@@ -18,6 +18,10 @@ $sql = "SELECT r.id, a.name AS area, r.rain, r.flood, r.note, r.photo, r.status,
         JOIN users u ON u.id = r.user_id
         WHERE r.status <> 'HIDDEN' ";
 
+if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'ADMIN') {
+    $sql .= "AND r.status <> 'PENDING' ";
+}
+
 $types = '';
 $params = [];
 

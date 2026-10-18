@@ -6,13 +6,25 @@
     --text: #1b2333;
 }
 
-/* dark mode follows the device setting */
+/* use the device setting until the user chooses a theme */
 @media (prefers-color-scheme: dark) {
-    :root {
+    :root:not([data-theme]) {
         --bg: #12161f;
         --card: #1c2230;
         --text: #e6e9f2;
     }
+}
+
+:root[data-theme="light"] {
+    --bg: #f4f6fb;
+    --card: #ffffff;
+    --text: #1b2333;
+}
+
+:root[data-theme="dark"] {
+    --bg: #12161f;
+    --card: #1c2230;
+    --text: #e6e9f2;
 }
 
 * {
@@ -24,6 +36,9 @@ body {
     font-family: Arial, sans-serif;
     background: var(--bg);
     color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 header, footer {
@@ -61,8 +76,55 @@ nav a {
     margin-left: 14px;
 }
 
+.theme-toggle {
+    position: relative;
+    width: 42px;
+    height: 22px;
+    margin-left: 14px;
+    padding: 0;
+    border: 1px solid rgba(255, 255, 255, 0.65);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.18);
+    color: white;
+    vertical-align: middle;
+}
+
+.theme-toggle-sun, .theme-toggle-moon {
+    position: absolute;
+    top: 1px;
+    width: 16px;
+    font-size: 14px;
+    line-height: 18px;
+    text-align: center;
+}
+
+.theme-toggle-sun {
+    left: 2px;
+}
+
+.theme-toggle-moon {
+    right: 2px;
+}
+
+.theme-toggle-thumb {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--gold);
+    transition: transform 0.2s ease;
+}
+
+:root[data-theme="dark"] .theme-toggle-thumb {
+    transform: translateX(20px);
+}
+
 main {
     max-width: 1000px;
+    width: 100%;
+    flex: 1;
     margin: 0 auto;
     padding: 20px 14px;
 }
@@ -110,6 +172,19 @@ button, .btn {
     cursor: pointer;
     text-decoration: none;
     display: inline-block;
+}
+
+.login-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 16px;
+}
+
+.login-actions button, .login-actions .btn {
+    flex: 1;
+    font: inherit;
+    font-weight: bold;
+    text-align: center;
 }
 
 button.delete {
@@ -192,10 +267,20 @@ button.delete {
     background: var(--card);
     border-radius: 8px;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
 }
 
 .report .info {
     padding: 14px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.report .info button {
+    margin-top: auto;
+    margin-bottom: 5px;
 }
 
 .photo {
@@ -218,6 +303,15 @@ button.delete {
 
 form.inline {
     display: inline;
+}
+
+.box.wide td form.inline {
+    display: inline-block;
+    margin: 0 5px 5px 0;
+}
+
+.box.wide td form.inline button {
+    padding: 8px 12px;
 }
 
 button.alt {

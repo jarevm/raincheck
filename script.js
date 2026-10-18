@@ -168,14 +168,21 @@ function loadReports() {
                     flood = '<span class="badge ' + r.flood + '">' + r.flood + ' FLOOD</span>';
                 }
 
+                var confirmButton = '';
+                if (r.status != 'PENDING') {
+                    confirmButton = '<button onclick="confirmReport(' + r.id + ')">I see this too</button>';
+                }
+
                 html += '<div class="report">' + photo +
                     '<div class="info">' +
+                    '<div class="report-content">' +
                     '<span class="badge ' + r.rain + '">' + r.rain + ' RAIN</span>' + flood +
                     '<span class="badge ' + r.status + '">' + r.status + '</span>' +
                     '<h3>' + r.area + '</h3>' +
                     '<p>' + r.note + '</p>' +
-                    '<small>by ' + r.author + ' · ' + timeText(r.minutes) + ' · ' + r.votes + ' confirmed</small><br>' +
-                    '<button onclick="confirmReport(' + r.id + ')">I see this too</button>' +
+                    '<small>by ' + r.author + ' · ' + timeText(r.minutes) + ' · ' + r.votes + ' confirmed</small>' +
+                    '</div>' +
+                    confirmButton +
                     '</div></div>';
             }
             feed.innerHTML = html;

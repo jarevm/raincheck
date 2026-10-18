@@ -42,9 +42,10 @@ include 'header.php';
         <input type="email" name="email" required>
         <label>Password</label>
         <input type="password" name="password" required>
-        <br><br>
-        <button type="submit">Login</button>
-        <a href="register.php">Create account</a>
+        <div class="login-actions">
+            <button type="submit">Login</button>
+            <a class="btn" href="register.php">Create account</a>
+        </div>
     </form>
 </div>
 <?php include 'footer.php'; ?>
