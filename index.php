@@ -4,7 +4,7 @@ $areas = $conn->query("SELECT id, name FROM areas");
 $page_title = 'Forecast & Reports';
 include 'header.php';
 ?>
-<h1>Weather in Calamba, Laguna</h1>
+<h1>Weather in NU Laguna, Calamba, Laguna</h1>
 
 <!-- umbrella advisor -->
 <div id="advisor" class="advisor NO">

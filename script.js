@@ -22,7 +22,7 @@ function getHour(timeText) {
 
 function loadWeather() {
     var url = 'https://api.open-meteo.com/v1/forecast?latitude=' + LAT + '&longitude=' + LON +
-        '&current=temperature_2m,weather_code' +
+        '&current=temperature_2m,apparent_temperature,relative_humidity_2m,wind_speed_10m,wind_direction_10m,weather_code' +
         '&hourly=precipitation_probability,precipitation,weather_code' +
         '&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max' +
         '&timezone=Asia%2FManila&forecast_days=5';
@@ -43,8 +43,19 @@ function loadWeather() {
 function showCurrent(data) {
     var weather = getWeather(data.current.weather_code);
     var temp = Math.round(data.current.temperature_2m);
+    var feelsLike = Math.round(data.current.apparent_temperature);
+    var windSpeed = Math.round(data.current.wind_speed_10m);
+    var windDirections = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'];
+    var windDirection = windDirections[Math.round(data.current.wind_direction_10m / 45) % 8];
+    var humidity = data.current.relative_humidity_2m;
     document.getElementById('current').innerHTML =
-        '<span class="temp">' + temp + '°C</span> ' + weather[1] + ' ' + weather[0];
+        '<div><span class="temp">' + temp + '°C</span> ' + weather[1] + ' ' + weather[0] + '</div>' +
+        '<div class="current-details">' +
+        '<span>Feels like <b>' + feelsLike + '°C</b></span>' +
+        '<span>Wind <b>' + windSpeed + ' km/h</b></span>' +
+        '<span>Direction <b>' + windDirection + '</b></span>' +
+        '<span>Humidity <b>' + humidity + '%</b></span>' +
+        '</div>';
 }
 
 function showHourly(data) {

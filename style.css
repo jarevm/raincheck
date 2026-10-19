@@ -4,6 +4,7 @@
     --bg: #f4f6fb;
     --card: #ffffff;
     --text: #1b2333;
+    --muted: #687386;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -11,6 +12,7 @@
         --bg: #12161f;
         --card: #1c2230;
         --text: #e6e9f2;
+        --muted: #aab3c8;
     }
 }
 
@@ -18,12 +20,14 @@
     --bg: #f4f6fb;
     --card: #ffffff;
     --text: #1b2333;
+    --muted: #687386;
 }
 
 :root[data-theme="dark"] {
     --bg: #12161f;
     --card: #1c2230;
     --text: #e6e9f2;
+    --muted: #aab3c8;
 }
 
 * {
@@ -219,6 +223,19 @@ button.delete {
 .temp {
     font-size: 36px;
     font-weight: bold;
+}
+
+.current-details {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 16px;
+    margin-top: 4px;
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.current-details b {
+    color: var(--text);
 }
 
 .row {
