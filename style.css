@@ -30,6 +30,10 @@
     --muted: #aab3c8;
 }
 
+:root {
+    background-color: var(--bg);
+}
+
 * {
     box-sizing: border-box;
 }
@@ -37,11 +41,40 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background: var(--bg);
+    background: transparent;
     color: var(--text);
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    isolation: isolate;
+}
+
+body, .box, .report, .mini {
+    transition: background-color 0.35s ease-in-out, color 0.35s ease-in-out;
+}
+
+.theme-background {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    background-color: var(--bg);
+    pointer-events: none;
+    transition: background-color 0.5s ease-in-out;
+}
+
+header, main, footer {
+    position: relative;
+    z-index: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    body, .box, .report, .mini {
+        transition: none;
+    }
+
+    .theme-background {
+        transition: none;
+    }
 }
 
 header, footer {
@@ -202,6 +235,14 @@ button.delete {
     border-radius: 5px;
 }
 
+#weather-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    
+}
+
 /* umbrella advisor */
 .advisor {
     color: white;
@@ -280,11 +321,28 @@ button.delete {
 }
 
 .report {
+    position: relative;
     background: var(--card);
     border-radius: 8px;
     overflow: hidden;
     display: flex;
     flex-direction: column;
+}
+
+.report .report-delete {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    z-index: 1;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    border-radius: 50%;
+    background: #c0392b;
+    color: white;
+    font-size: 16px;
+    line-height: 28px;
+    text-align: center;
 }
 
 .report .info {

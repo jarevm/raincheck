@@ -65,9 +65,10 @@ include 'header.php';
         <input type="password" name="password" id="password" required>
         <label>Confirm password</label>
         <input type="password" id="confirm" required>
-        <br><br>
-        <button type="submit">Register</button>
-        <a href="login.php">I already have an account</a>
+        <div class="login-actions">
+            <button type="submit">Register</button>
+            <a class="btn" href="login.php">I already have an account</a>
+        </div>
     </form>
 </div>
 <script src="register.js"></script>

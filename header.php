@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?php echo $page_title; ?> | UlanAlert</title>
-    <script>
+    <script> // theme toggle and weather theme handling
         var navigationEntries = performance.getEntriesByType ?
             performance.getEntriesByType('navigation') : [];
         var isReload = navigationEntries.length ?
@@ -25,6 +25,7 @@
 </head>
 
 <body>
+    <div class="theme-background" aria-hidden="true"></div>
     <header>
         <a class="logo" href="index.php">NU<span>lanAhead</span></a>
         <nav>
@@ -47,6 +48,7 @@
         </nav>
     </header>
     <script>
+        var csrfToken = <?php echo json_encode($_SESSION['csrf_token']); ?>;
         var themeToggle = document.getElementById('theme-toggle');
         var prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
         var currentTheme = document.documentElement.dataset.theme ||

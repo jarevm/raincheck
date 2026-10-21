@@ -184,7 +184,12 @@ function loadReports() {
                     confirmButton = '<button onclick="confirmReport(' + r.id + ')">I see this too</button>';
                 }
 
-                html += '<div class="report">' + photo +
+                var deleteButton = '';
+                if (r.is_owner && (r.status == 'PENDING' || r.status == 'VERIFIED')) {
+                    deleteButton = '<button type="button" class="report-delete" aria-label="Delete your report" title="Delete report" onclick="deleteReport(' + r.id + ')">X</button>';
+                }
+
+                html += '<div class="report">' + photo + deleteButton +
                     '<div class="info">' +
                     '<div class="report-content">' +
                     '<span class="badge ' + r.rain + '">' + r.rain + ' RAIN</span>' + flood +
@@ -197,6 +202,31 @@ function loadReports() {
                     '</div></div>';
             }
             feed.innerHTML = html;
+        });
+}
+
+function deleteReport(id) {
+    if (!window.confirm('Delete this report?')) return;
+
+    fetch('delete_report.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: 'id=' + encodeURIComponent(id) + '&csrf_token=' + encodeURIComponent(csrfToken)
+    })
+        .then(function (response) {
+            return response.json().then(function (data) {
+                if (!response.ok) {
+                    throw new Error(data.message || 'Unable to delete the report.');
+                }
+                return data;
+            });
+        })
+        .then(function (data) {
+            alert(data.message);
+            loadReports();
+        })
+        .catch(function (error) {
+            alert(error.message);
         });
 }
 
